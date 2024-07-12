@@ -39,10 +39,12 @@ module.exports = function (ctx) {
       },
       env: ctx.dev
         ? { // dev environnment
-          API_PORT: 5252
+          API_PORT: 5252,
+          OPENAI_API_KEY: process.env.OPENAI_API_KEY
         }
         : { // prod environnment (build)
           API_PORT: 8443,
+          OPENAI_API_KEY: process.env.OPENAI_API_KEY
         }
     },
     devServer: {

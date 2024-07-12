@@ -1,5 +1,16 @@
 import { Notify, Dialog } from 'quasar';
 
+// ChatGPT TESTTT -----------------------------------------
+import { Configuration, OpenAIApi } from 'openai';
+
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
+// ------------------------------------------------------
+
 import BasicEditor from 'components/editor';
 import Breadcrumb from 'components/breadcrumb';
 import CvssCalculator from 'components/cvsscalculator'
@@ -159,6 +170,34 @@ export default {
             })
             return result
         },
+
+        // TESTTTT ---------------------------------------------------------------
+
+        TEST: async function() {
+            Utils.syncEditors(this.$refs)
+            await this.$nextTick()
+            
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = this.finding.description;
+            const textContent = tempDiv.innerText || tempDiv.textContent;
+            
+            // Assuming openai is properly imported and configured
+            const prompt = textContent; // or define your prompt based on textContent
+            try {
+                const response = await openai.createChatCompletion({
+                    model: 'gpt-3.5-turbo',
+                    messages: [{ role: 'user', content: prompt }],
+                });
+                if (response.data && response.data.choices && response.data.choices.length > 0) {
+                    console.log('OpenAI Response:', response.data.choices[0].message.content);
+                } else {
+                    console.log('Unexpected response structure:', response.data);
+                }
+            } catch (error) {
+                console.error('Error details:', error.response?.data || error.message);
+            }
+        },    
+        // ------------------------------------------------------------------------
 
         // Update Finding
         updateFinding: function() {

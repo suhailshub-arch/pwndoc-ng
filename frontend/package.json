@@ -42,7 +42,8 @@
     "vue-lodash": "^2.1.2",
     "vue2-dragula": "^2.5.5",
     "vuedraggable": "^2.23.2",
-    "yjs": "^13.5.44"
+    "yjs": "^13.5.44",
+    "openai": "^3.0.0"
   },
   "devDependencies": {
     "@quasar/app": "^2.4.3",

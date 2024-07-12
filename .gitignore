@@ -9,6 +9,7 @@ mongo-data*
 .quasar
 report-templates
 custom-generator.js
+.env
 
 # Configuration files
 config.json
