@@ -234,13 +234,15 @@ export default {
             this.cleanErrors();
 
             var index = this.currentVulnerability.details.findIndex(obj => obj.title !== '');
+            console.log("Current", this.currentVulnerability.details)
+            console.log("Update",this.update.details)
             if (index < 0)
                 this.errors.title = $t('err.titleRequired');
             
             if (this.errors.title)
                 return;
               
-            VulnerabilityService.updateVulnerability(this.vulnerabilityId, this.currentVulnerability)
+            VulnerabilityService.updateVulnerability(this.vulnerabilityId, this.currentVulnerability.details)
             .then(() => {
                 this.getVulnerabilities();
                 this.$refs.editModal.hide();

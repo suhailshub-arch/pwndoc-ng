@@ -22,4 +22,4 @@ docker-compose stop
 docker-compose start
 ```
 
-Application is accessible through https://localhost:8081
+Application is accessible through https://localhost:8443

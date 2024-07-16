@@ -35,6 +35,7 @@ mongoose.connect(`mongodb://${config.database.server}:${config.database.port}/${
 
 // Models import
 require('./models/user');
+// require('./models/vulnerabilitiesChatGPT');
 require('./models/audit');
 require('./models/client');
 require('./models/company');

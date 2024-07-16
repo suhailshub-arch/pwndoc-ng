@@ -684,19 +684,22 @@
                                 borderless 
                                 :label="$t('description')" 
                                 stack-label
+
                                 :class="
-                                    (currentVulnerability.details[currentDetailsIndex].description || update.description) &&
-                                    (currentVulnerability.details[currentDetailsIndex].description != update.description)
-                                    ?'bg-diffbackground':''
-                                "
+                                (update.description || currentVulnerability.details[currentDetailsIndex].description ) &&
+                                (update.description != currentVulnerability.details[currentDetailsIndex].description )
+                                ?'bg-diffbackground':''
+                            "
                                 class="basic-editor"
                                 readonly>
                                     <template v-slot="control">
-                                        <basic-editor noAffix 
-                                        v-model="update.description" 
-                                        :idUnique="currentVulnerability._id+'-description'"
-                                        :diff="currentVulnerability.details[currentDetailsIndex].description || ''" 
-                                        :editable=false />
+                                        <basic-editor 
+                                        noAffix 
+                                        v-model="currentVulnerability.details[currentDetailsIndex].description" 
+                                        :idUnique="currentVulnerability._id + '-description'"
+                                        :diff="update.description || ''" 
+                                        :editable="false" 
+                                    />
                                     </template>
                                 </q-field>
                             </q-card-section>

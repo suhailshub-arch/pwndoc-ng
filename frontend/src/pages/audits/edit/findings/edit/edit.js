@@ -40,7 +40,9 @@ export default {
             vulnTypes: [],
             readyToSave:false,
             needSave:false,
-            AUDIT_VIEW_STATE: Utils.AUDIT_VIEW_STATE
+            AUDIT_VIEW_STATE: Utils.AUDIT_VIEW_STATE,
+            openaiResponse: ''
+
         }
     },
 
@@ -173,7 +175,32 @@ export default {
 
         // TESTTTT ---------------------------------------------------------------
 
-        TEST: async function() {
+        // TEST: async function() {
+        //     Utils.syncEditors(this.$refs)
+        //     await this.$nextTick()
+            
+        //     const tempDiv = document.createElement("div");
+        //     tempDiv.innerHTML = this.finding.description;
+        //     const textContent = tempDiv.innerText || tempDiv.textContent;
+            
+        //     // Assuming openai is properly imported and configured
+        //     const prompt = textContent; // or define your prompt based on textContent
+        //     try {
+        //         const response = await openai.createChatCompletion({
+        //             model: 'gpt-3.5-turbo',
+        //             messages: [{ role: 'user', content: prompt }],
+        //         });
+        //         if (response.data && response.data.choices && response.data.choices.length > 0) {
+        //             console.log('OpenAI Response:', response.data.choices[0].message.content);
+        //         } else {
+        //             console.log('Unexpected response structure:', response.data);
+        //         }
+        //     } catch (error) {
+        //         console.error('Error details:', error.response?.data || error.message);
+        //     }
+        // },    
+
+        async TEST() {
             Utils.syncEditors(this.$refs)
             await this.$nextTick()
             
@@ -189,6 +216,7 @@ export default {
                     messages: [{ role: 'user', content: prompt }],
                 });
                 if (response.data && response.data.choices && response.data.choices.length > 0) {
+                    this.openaiResponse = response.data.choices[0].message.content;
                     console.log('OpenAI Response:', response.data.choices[0].message.content);
                 } else {
                     console.log('Unexpected response structure:', response.data);
@@ -196,7 +224,7 @@ export default {
             } catch (error) {
                 console.error('Error details:', error.response?.data || error.message);
             }
-        },    
+        },
         // ------------------------------------------------------------------------
 
         // Update Finding
