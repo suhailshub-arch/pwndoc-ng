@@ -684,7 +684,6 @@
                                 borderless 
                                 :label="$t('description')" 
                                 stack-label
-
                                 :class="
                                 (update.description || currentVulnerability.details[currentDetailsIndex].description ) &&
                                 (update.description != currentVulnerability.details[currentDetailsIndex].description )
@@ -702,6 +701,7 @@
                                     />
                                     </template>
                                 </q-field>
+
                             </q-card-section>
                             <q-card-section>
                                 <q-field 

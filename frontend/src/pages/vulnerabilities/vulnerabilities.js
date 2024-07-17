@@ -242,7 +242,7 @@ export default {
             if (this.errors.title)
                 return;
               
-            VulnerabilityService.updateVulnerability(this.vulnerabilityId, this.currentVulnerability.details)
+            VulnerabilityService.updateVulnerability(this.vulnerabilityId, this.currentVulnerability)
             .then(() => {
                 this.getVulnerabilities();
                 this.$refs.editModal.hide();
