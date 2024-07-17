@@ -115,7 +115,7 @@ CVSS31.Weight = {
 
 // Severity rating bands, as defined in the CVSS v3.1 specification.
 
-CVSS31.severityRatings  = [ { name: "None",     bottom: 0.0, top:  0.0},
+CVSS31.severityRatings  = [ { name: "Info",     bottom: 0.0, top:  0.0},
                             { name: "Low",      bottom: 0.1, top:  3.9},
                             { name: "Medium",   bottom: 4.0, top:  6.9},
                             { name: "High",     bottom: 7.0, top:  8.9},

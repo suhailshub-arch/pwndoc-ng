@@ -235,7 +235,7 @@ export default {
 
             var index = this.currentVulnerability.details.findIndex(obj => obj.title !== '');
             console.log("Current", this.currentVulnerability.details)
-            console.log("Update",this.update.details)
+            console.log("Update",this.update)
             if (index < 0)
                 this.errors.title = $t('err.titleRequired');
             

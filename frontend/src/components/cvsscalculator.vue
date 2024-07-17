@@ -1106,7 +1106,7 @@ export default {
         position: absolute;
     }
 
-    .scoreRating.None {
+    .scoreRating.Info {
         background: #53aa33;
         border: 2px solid #53aa33;
         color: white;
