@@ -213,7 +213,10 @@ export default {
             try {
                 const response = await openai.createChatCompletion({
                     model: 'gpt-3.5-turbo',
-                    messages: [{ role: 'user', content: prompt }],
+                    messages: [
+                        {role: 'system', content: "You are a professional penetration tester. Turn the following piece of text for pofessional report purpose."}, 
+                        {role: 'user', content: prompt} 
+                    ],
                 });
                 if (response.data && response.data.choices && response.data.choices.length > 0) {
                     this.openaiResponse = response.data.choices[0].message.content;
