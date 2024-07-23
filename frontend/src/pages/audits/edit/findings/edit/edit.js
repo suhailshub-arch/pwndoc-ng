@@ -41,7 +41,10 @@ export default {
             readyToSave:false,
             needSave:false,
             AUDIT_VIEW_STATE: Utils.AUDIT_VIEW_STATE,
-            openaiResponse: ''
+            //openaiResponse: ''
+            descriptionOpenAIResponse: '',
+            observationOpenAIResponse: '',
+            remediationOpenAIResponse: ''
 
         }
     },
@@ -175,7 +178,7 @@ export default {
 
         // TESTTTT ---------------------------------------------------------------
 
-        // TEST: async function() {
+        // async TEST() {
         //     Utils.syncEditors(this.$refs)
         //     await this.$nextTick()
             
@@ -188,9 +191,13 @@ export default {
         //     try {
         //         const response = await openai.createChatCompletion({
         //             model: 'gpt-3.5-turbo',
-        //             messages: [{ role: 'user', content: prompt }],
+        //             messages: [
+        //                 {role: 'system', content: "You are a professional penetration tester. Turn the following piece of text for pofessional report purpose."}, 
+        //                 {role: 'user', content: prompt} 
+        //             ],
         //         });
         //         if (response.data && response.data.choices && response.data.choices.length > 0) {
+        //             this.openaiResponse = response.data.choices[0].message.content;
         //             console.log('OpenAI Response:', response.data.choices[0].message.content);
         //         } else {
         //             console.log('Unexpected response structure:', response.data);
@@ -198,36 +205,63 @@ export default {
         //     } catch (error) {
         //         console.error('Error details:', error.response?.data || error.message);
         //     }
-        // },    
+        // },
+        // ------------------------------------------------------------------------
 
-        async TEST() {
-            Utils.syncEditors(this.$refs)
-            await this.$nextTick()
-            
-            const tempDiv = document.createElement("div");
-            tempDiv.innerHTML = this.finding.description;
-            const textContent = tempDiv.innerText || tempDiv.textContent;
-            
-            // Assuming openai is properly imported and configured
-            const prompt = textContent; // or define your prompt based on textContent
+        async TEST(field) {
             try {
+                console.log('Starting TEST function with field:', field);
+                
+                Utils.syncEditors(this.$refs)
+                await this.$nextTick()
+                
+                const editorRef = `basiceditor_${field}`;
+                const editor = this.$refs[editorRef];
+                
+                if (!editor) {
+                    console.error(`Editor reference not found: ${editorRef}`);
+                    return;
+                }
+                
+                // Access the HTML content directly from the editor component
+                const textContent = editor.html || '';
+                
+                const prompt = `${this.$t(field)}:\n${textContent}`;
+                
+                // Rest of your OpenAI API call code...
                 const response = await openai.createChatCompletion({
                     model: 'gpt-3.5-turbo',
                     messages: [
-                        {role: 'system', content: "You are a professional penetration tester. Turn the following piece of text for pofessional report purpose."}, 
+                        {role: 'system', content: "You are a professional penetration tester. Turn the following piece of text for professional report purpose."}, 
                         {role: 'user', content: prompt} 
                     ],
                 });
+                
                 if (response.data && response.data.choices && response.data.choices.length > 0) {
-                    this.openaiResponse = response.data.choices[0].message.content;
-                    console.log('OpenAI Response:', response.data.choices[0].message.content);
+                    const openAIResponse = response.data.choices[0].message.content;
+                    
+                    // Update the appropriate response field
+                    switch(field) {
+                        case 'description':
+                            this.descriptionOpenAIResponse = openAIResponse;
+                            break;
+                        case 'observation':
+                            this.observationOpenAIResponse = openAIResponse;
+                            break;
+                        case 'remediation':
+                            this.remediationOpenAIResponse = openAIResponse;
+                            break;
+                    }
+                    
+                    console.log(`OpenAI Response for ${field}:`, openAIResponse);
                 } else {
                     console.log('Unexpected response structure:', response.data);
                 }
             } catch (error) {
-                console.error('Error details:', error.response?.data || error.message);
+                console.error('Error in TEST function:', error);
             }
         },
+
         // ------------------------------------------------------------------------
 
         // Update Finding

@@ -42,10 +42,10 @@
                                     :editable="frontEndAuditState === AUDIT_VIEW_STATE.EDIT" />
                             </template>
                         </q-field>
-                        <q-btn class="q-mt-md" label="Use ChatGPT" color="primary" @click="TEST()" />
+                        <q-btn class="q-mt-md" :label="$t('Use ChatGPT for Description')" color="primary" @click="TEST('description')" />
                         <!-- New field to display OpenAI response -->
-                        <q-field class="col-md-12" borderless :label="$t('OpenAI Response')" stack-label>
-                            <div>{{ openaiResponse }}</div>
+                        <q-field class="col-md-12" borderless :label="$t('Description OpenAI Response')" stack-label>
+                            <div>{{ descriptionOpenAIResponse }}</div>
                         </q-field>
                         
                         <!-- <q-field class="col-md-12" borderless :label="openaiResponse" stack-label>
@@ -87,6 +87,11 @@
                                     idUnique="basiceditor_observation" noSync v-model="finding.observation"
                                     :editable="frontEndAuditState === AUDIT_VIEW_STATE.EDIT" />
                             </template>
+                        </q-field>
+                        <q-btn class="q-mt-md" :label="$t('Use ChatGPT for Observation')" color="primary" @click="TEST('observation')" />
+                        <!-- New field to display OpenAI response -->
+                        <q-field class="col-md-12" borderless :label="$t('Observation OpenAI Response')" stack-label>
+                            <div>{{ observationOpenAIResponse }}</div>
                         </q-field>
                         <textarea-array class="col-12" :label="$t('references')" v-model="finding.references"
                             :readonly="frontEndAuditState !== AUDIT_VIEW_STATE.EDIT" />
@@ -161,6 +166,11 @@
                                     idUnique="basiceditor_remediation" noSync v-model="finding.remediation"
                                     :editable="frontEndAuditState === AUDIT_VIEW_STATE.EDIT" />
                             </template>
+                        </q-field>
+                        <q-btn class="q-mt-md" :label="$t('Use ChatGPT for Remediation')" color="primary" @click="TEST('remediation')" />
+                        <!-- New field to display OpenAI response -->
+                        <q-field class="col-md-12" borderless :label="$t('Remediation OpenAI Response')" stack-label>
+                            <div>{{ remediationOpenAIResponse }}</div>
                         </q-field>
                     </q-card-section>
                 </q-card>
